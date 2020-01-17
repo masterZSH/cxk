@@ -78,7 +78,7 @@ func Convert(f io.ReadCloser, chars []string, subWidth, subHeight int, imageSwit
 		return 0
 	}
 	for i, m := range tgif.Image {
-		delay := 10 * tgif.Delay[i]
+		delay := 1000 * tgif.Delay[i]
 		formatStr := ""
 		formatStr += string(delay)
 		formatStr += "ms"
