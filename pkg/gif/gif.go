@@ -7,6 +7,7 @@ import (
 	"image/color"
 	"image/gif"
 	"io"
+	"strconv"
 	"time"
 
 	"golang.org/x/image/font"
@@ -77,10 +78,11 @@ func Convert(f io.ReadCloser, chars []string, subWidth, subHeight int, imageSwit
 	if err != nil {
 		return 0
 	}
+	// 按照gif播放速度输出
 	for i, m := range tgif.Image {
-		delay := 1000 * tgif.Delay[i]
+		delay := 10 * tgif.Delay[i]
 		formatStr := ""
-		formatStr += string(delay)
+		formatStr += strconv.Itoa(delay)
 		formatStr += "ms"
 		dur, _ := time.ParseDuration(formatStr)
 		time.Sleep(dur)
