@@ -2,12 +2,10 @@ package config
 
 import (
 	"image/color"
-
-	"honnef.co/go/tools/config"
 )
 
 // Config 配置结构体
-var Config struct {
+type Config struct {
 	// GifURL gif 图片地址
 	GifURL string
 	// 画的字符
@@ -31,8 +29,8 @@ var Colors map[string]color.RGBA = map[string]color.RGBA{"black": {0, 0, 0, 255}
 	"green": {0, 128, 0, 255},
 	"blue":  {0, 0, 255, 255}}
 
-func GetConfig() (Config,map[string]color.RGBA){
-	var config *Config = &Config{
+func GetConfig() (Config, map[string]color.RGBA) {
+	var config = Config{
 		"https://mynovelsave.oss-cn-beijing.aliyuncs.com/pic/cxk.gif",
 		"01 ",
 		10,
@@ -41,5 +39,5 @@ func GetConfig() (Config,map[string]color.RGBA){
 		"black",
 		"gray",
 	}
-	return config,Colors
+	return config, Colors
 }

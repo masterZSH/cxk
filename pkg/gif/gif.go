@@ -1,6 +1,8 @@
 package gif
 
 import (
+	"bytes"
+	"fmt"
 	"image"
 	"image/color"
 	"image/gif"
@@ -82,7 +84,33 @@ func Convert(f io.ReadCloser, chars []string, subWidth, subHeight int, imageSwit
 		formatStr += "ms"
 		dur, _ := time.ParseDuration(formatStr)
 		time.Sleep(dur)
-		Draw(m, chars, subWidth, subHeight, imageSwitch, bgColor, penColor)
+		draw(m, chars, subWidth, subHeight, imageSwitch, bgColor, penColor)
 	}
 	return 1
+}
+
+// Draw 绘画主方法
+func draw(m *image.Paletted, chars []string, subWidth, subHeight int, imageSwitch bool, bgColor, penColor color.RGBA) string {
+	imageWidth, imageHeight := m.Bounds().Max.X, m.Bounds().Max.Y
+	var img *image.NRGBA
+	if imageSwitch {
+		img = InitGif(imageWidth, imageHeight, bgColor)
+	}
+	piecesX, piecesY := imageWidth/subWidth, imageHeight/subHeight
+	var buff bytes.Buffer
+	for y := 0; y < piecesY; y++ {
+		offsetY := y * subHeight
+		for x := 0; x < piecesX; x++ {
+			offsetX := x * subWidth
+			averageBrightness := CalcBrightness(m, image.Rect(offsetX, offsetY, offsetX+subWidth, offsetY+subHeight))
+			char := GetCharByBrightness(chars, averageBrightness)
+			buff.WriteString(char)
+			if img != nil {
+				AddCharToImage(img, char, x*subWidth, y*subHeight, penColor)
+			}
+		}
+		buff.WriteString("\n")
+	}
+	fmt.Printf("%s", buff.String())
+	return buff.String()
 }
