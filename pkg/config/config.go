@@ -31,7 +31,7 @@ var Colors map[string]color.RGBA = map[string]color.RGBA{"black": {0, 0, 0, 255}
 
 func GetConfig() (Config, map[string]color.RGBA) {
 	var config = Config{
-		"https://mynovelsave.oss-cn-beijing.aliyuncs.com/pic/cxk.gif",
+		"https://s1.ax1x.com/2020/04/28/J5Vubn.gif",
 		"01 ",
 		10,
 		10,

@@ -4,6 +4,9 @@
 ## 演示
 ![demo](./images/demo.gif)
 
+
+![demo](./images/demo1.gif)
+
 ## 编译
 ```shell
 git clone https://github.com/masterZSH/cxk.git
